@@ -1,5 +1,17 @@
 # Restaurant Sentiment Analysis Platform
 
+## Repository Structure
+
+```text
+.
+├── src/                
+├── docs/               # Project proposal, documentation, user manual
+├── requirements.txt
+└── README.md
+```
+
+---
+
 ## Overview
 
 Restaurant reviews contain valuable insights about customer experiences, preferences, and satisfaction. This project leverages Natural Language Processing (NLP) and Machine Learning techniques to automatically analyze restaurant reviews and classify customer sentiment.
@@ -105,28 +117,6 @@ This platform can be used for:
 
 ---
 
-## Repository Structure
-
-```text
-.
-├── src/                # Source code
-├── docs/               # Project proposal, documentation, user manual
-├── data/               # Dataset files (if included)
-├── requirements.txt
-└── README.md
-```
-
----
-
-## Future Improvements
-
-* Real-time review monitoring
-* Multi-language sentiment analysis
-* Explainable AI for sentiment predictions
-* Interactive analytics dashboard
-* Cloud deployment for large-scale processing
-
----
 
 ## Author
 
