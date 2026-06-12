@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Negative Review Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="green-header">
+        <h1>RESTAURANT REVIEW SENTIMENT ANALYSIS</h1>
+        <p class="subtitle">Let's see whether people reviewed your restaurant Good or a Bad</p>
+    </div>
+    
+    <div class="result-content">
+        <div class="prediction-text">
+            <span class="prediction-label">Prediction:</span>
+            <span class="prediction-result negative">Can try better next time</span>
+        </div>
+        
+        <div class="emoji-container">
+            <span class="emoji">😞</span>
+        </div>
+        
+        <div class="result-message negative">
+            Can try better next time
+        </div>
+        
+        <a href="{{ url_for('index') }}" class="back-btn">Try another review</a>
+    </div>
+    
+    <div class="green-footer"></div>
+</body>
+</html>

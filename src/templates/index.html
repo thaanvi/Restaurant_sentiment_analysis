@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Review Sentiment Analysis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="gradient-header">
+        <h1>RESTAURANT REVIEW SENTIMENT ANALYSIS</h1>
+        <p class="subtitle">Please write your review in the box to check whether the review was Good or Bad</p>
+    </div>
+    
+    <div class="main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        <form method="POST" action="{{ url_for('predict') }}">
+            <label for="review">Enter your review here</label>
+            <textarea id="review" name="review" placeholder="Type your restaurant review here..." required></textarea>
+            <button type="submit" class="predict-btn">Predict</button>
+        </form>
+    </div>
+</body>
+</html>

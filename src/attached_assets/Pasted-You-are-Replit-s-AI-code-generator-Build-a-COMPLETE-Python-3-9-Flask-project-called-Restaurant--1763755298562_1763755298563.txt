@@ -1,0 +1,212 @@
+You are Replit’s AI code generator. Build a COMPLETE Python 3.9+ Flask project called **“Restaurant Review Sentiment Analysis System”** that follows this user manual and matches the attached UI screenshots as closely as possible (layout, colors, fonts, and texts).
+
+############################
+## PURPOSE / FUNCTIONALITY
+############################
+
+Create a small AI web app that:
+- Takes restaurant reviews as input.
+- Classifies them as **positive**, **negative**, or **neutral** using a simple sentiment model.
+- Shows a **Good result screen** (thumbs-up emoji), a **Bad result screen** (sad emoji), or a **Neutral result screen**.
+- Provides:
+  - Single-review prediction via UI.
+  - A batch prediction script for CSV files.
+  - A retraining script that can update the model with new labeled data.
+
+Use Python, Flask, scikit-learn, pandas, and joblib (or pickle). No external APIs.
+
+############################
+## PROJECT STRUCTURE
+############################
+
+Create this file/folder structure:
+
+- app.py                # main Flask app
+- setup.py              # sets up initial model if not present
+- batch_predict.py      # CLI for multiple reviews
+- retrain.py            # CLI for retraining with CSV
+- requirements.txt
+- templates/
+    - index.html        # main input page
+    - result_good.html  # positive sentiment result
+    - result_bad.html   # negative sentiment result
+    - result_neutral.html # neutral sentiment result
+    - 404.html          # custom 404 page
+- static/
+    - css/
+        - style.css     # all styles for all pages
+- model/
+    - model.joblib      # saved scikit-learn pipeline
+- README.md
+
+############################
+## BACKEND LOGIC
+############################
+
+1. **Model**
+   - Build a simple scikit-learn pipeline:
+     - TfidfVectorizer for text.
+     - LogisticRegression (or similar) for classification.
+   - Train on a small hard-coded demo dataset inside setup.py (e.g., positive/negative restaurant sentences) just so the model works out of the box.
+   - Save it to `model/model.joblib` using joblib.
+
+2. **setup.py**
+   - When run (`python setup.py`):
+     - Check if `model/model.joblib` exists.
+     - If not, train the default model and save it.
+     - Print something like “Model initialized and saved to model/model.joblib”.
+
+3. **Flask app (app.py)**
+   - Load the saved pipeline from `model/model.joblib` at startup.
+   - Use Flask with:
+     - Route **`/` (GET)**:
+       - Render `index.html` with the input text area and Predict button.
+     - Route **`/predict` (POST)**:
+       - Receive review text from form.
+       - Basic validation: if empty or too short, redirect back with an error message.
+       - Use the model to predict sentiment label: "positive", "negative", or "neutral".
+       - Depending on the label:
+         - Render `result_good.html` for positive.
+         - Render `result_bad.html` for negative.
+         - Render `result_neutral.html` for neutral.
+     - Register a **404 error handler** that renders `404.html`.
+   - Run on host 0.0.0.0 and **port 8000** so it matches `http://localhost:8000`.
+
+4. **batch_predict.py**
+   - Usage: `python batch_predict.py --input reviews.csv --output results.csv`
+   - Read a CSV file with a single column named **review**.
+   - Use the same saved model to predict sentiment for each row.
+   - Write out `results.csv` containing both the original review and predicted label.
+   - Print a friendly message indicating how many reviews were processed.
+
+5. **retrain.py**
+   - Usage: `python retrain.py --data new_data.csv`
+   - Read a CSV containing two columns: **review** and **label**.
+   - Train a new scikit-learn pipeline on this dataset.
+   - Overwrite `model/model.joblib` with the new model.
+   - Print “Retraining complete. Restart the app to use the new model.”
+
+############################
+## FRONTEND / UI (MUST MATCH SCREENSHOTS)
+############################
+
+GENERAL STYLE:
+- Use a clean sans-serif font (e.g., system UI or similar).
+- Use centered content.
+- Use the **same texts, layout and colors** as in the screenshots.
+
+1. **Index page (`index.html`) – teal gradient header**
+   - Top section: a full-width **teal-to-blue gradient** header, similar to the screenshot.
+     - Large centered white title: `RESTAURANT REVIEW SENTIMENT ANALYSIS` (all caps).
+     - Subtitle line in smaller white font: `Please write your review in the box to check whether the review was Good or Bad`.
+   - Below the header, center a label text: **“Enter your review here”**.
+   - Under the label, place a large white `<textarea>` with a light gray border and rounded corners (similar size and proportions to the screenshot).
+   - Below the textarea, center a **“Predict”** button:
+     - White background.
+     - Black text “Predict”.
+     - Rounded pill-shaped border with black outline, as shown in the screenshot.
+   - Page background below the header should be white.
+
+2. **Positive result page (`result_good.html`) – green bars + thumbs up**
+   - Top: solid **olive green / dark green** bar spanning full width.
+     - White uppercase title: `RESTAURANT REVIEW SENTIMENT ANALYSIS`.
+     - Subtitle in white: `Let's see whether people reviewed your restaurant Good or a Bad`.
+   - Under the header, in black bold text:
+     - `Prediction:` (black and bold) followed by
+     - `Good Job!!! Looks like people seem to enjoy food` in bold **dark green**, exactly like the screenshot.
+   - In the center of the page, display a **large thumbs-up smiling emoji** (you can just use a Unicode emoji styled with a very large font-size, e.g. 140–160px).
+   - Below the emoji, show a second line of centered dark-green text:
+     - `Good job, seems like people enjoy the food`
+     - Use large font size, bold, in dark green.
+   - At the bottom of the page, add a thin full-width green bar similar to the screenshot.
+   - Also provide a small “Back” or “Try another review” button linking to `/`.
+
+3. **Negative result page (`result_bad.html`) – green bars + sad emoji**
+   - Same solid green header and bottom bar as the positive page.
+   - Under the header show:
+     - `Prediction: Can try better next time` in black, centered, as per the screenshot.
+   - In the middle, display a large **sad emoji** (downturned eyebrows and mouth).
+   - Optionally, at the bottom center, display a line like:
+     - `Can try better next time` in dark green.
+   - Include a “Back” or “Try another review” button linking to `/`.
+
+4. **Neutral result page (`result_neutral.html`)**
+   - Same header and footer green bars.
+   - Show a line like:
+     - `Prediction: Looks okay, might be neutral overall`
+   - Show a **neutral face emoji** in the middle (straight mouth).
+   - Add a summary line in dark green, e.g. `Seems like reviews are mixed or neutral`.
+   - Include a “Back” button linking to `/`.
+
+5. **404 page (`404.html`) – error screenshot**
+   - Same green top bar with the same title and subtitle.
+   - In the center of the body, reproduce the error layout:
+     - Large centered text: `404 Error`.
+     - Below it, much larger `404`.
+     - Below that, `Not Found`.
+   - Use black text and similar spacing as in the screenshot.
+   - Bottom green bar same as result pages.
+   - Optional small link “Back to Home” that routes to `/`.
+
+6. **style.css**
+   - Contains all colors, fonts, margins, paddings, and shared layout rules.
+   - Use CSS to:
+     - Create the teal gradient header for index (`linear-gradient`).
+     - Create the solid green bars for the other pages.
+     - Center all main content.
+     - Style the textarea width (~60% of page on desktop) and height (~200px).
+     - Give the Predict button the pill shape with hover effect (e.g., subtle box-shadow or background change).
+
+############################
+## USER MANUAL BEHAVIOR (LOGIC)
+############################
+
+Implement the behavior described:
+
+- When user opens `/`:
+  - They see the main input UI as above.
+- When they type a review and click **Predict**:
+  - The backend:
+    - Validates the input (not empty).
+    - Sends it to the model.
+    - Based on the prediction, renders the corresponding result template.
+- The system should handle:
+  - Empty or nonsense input by either:
+    - Showing an error on the index page, OR
+    - Redirecting with a flash message.
+- batch_predict.py and retrain.py should follow:
+  - `python batch_predict.py --input reviews.csv --output results.csv`
+  - `python retrain.py --data new_data.csv`
+
+############################
+## REQUIREMENTS.TXT
+############################
+
+Add at least these packages:
+
+Flask
+scikit-learn
+pandas
+joblib
+numpy
+
+############################
+## README.md
+############################
+
+Create a README that summarizes the user manual in simple steps:
+
+- System requirements (MacOS Monterey+, Ubuntu 20.04+, Windows 10+; 8GB+ RAM, ideally 16GB; Python 3.9+; browser; optional GPU).
+- Installation:
+  1. Install Python 3.9+.
+  2. `pip install -r requirements.txt`
+  3. `python setup.py`
+  4. `python app.py`
+  5. Open `http://localhost:8000` in a browser.
+- How to:
+  - Enter a single review and click Predict.
+  - Use `batch_predict.py` for multiple reviews at once.
+  - Use `retrain.py` with `review,label` CSV to retrain.
+  - Stop the app with Ctrl + C.
+
+Make sure the app starts without modification when run with `python setup.py` then `python app.py`, and that the UI looks as close as possible to the provided screenshots.

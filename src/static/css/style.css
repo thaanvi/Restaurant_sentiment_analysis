@@ -1,0 +1,254 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    min-height: 100vh;
+    background-color: white;
+}
+
+.gradient-header {
+    background: linear-gradient(135deg, #008B8B 0%, #4682B4 100%);
+    padding: 60px 20px;
+    text-align: center;
+    color: white;
+}
+
+.green-header {
+    background-color: #556B2F;
+    padding: 60px 20px;
+    text-align: center;
+    color: white;
+}
+
+.gradient-header h1,
+.green-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    font-weight: 300;
+    margin-top: 10px;
+}
+
+.main-content {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.alert-error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef9a9a;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+textarea {
+    width: 100%;
+    max-width: 650px;
+    height: 200px;
+    padding: 15px;
+    font-size: 1rem;
+    font-family: inherit;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    resize: vertical;
+    margin-bottom: 30px;
+    transition: border-color 0.3s;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #4682B4;
+}
+
+.predict-btn {
+    background-color: white;
+    color: black;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 12px 60px;
+    border: 2px solid black;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.predict-btn:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result-content {
+    max-width: 800px;
+    margin: 80px auto;
+    padding: 0 20px;
+    text-align: center;
+    min-height: 400px;
+}
+
+.prediction-text {
+    font-size: 1.3rem;
+    margin-bottom: 50px;
+}
+
+.prediction-label {
+    font-weight: 700;
+    color: black;
+}
+
+.prediction-result {
+    font-weight: 700;
+    margin-left: 10px;
+}
+
+.prediction-result.positive {
+    color: #2E7D32;
+}
+
+.prediction-result.negative {
+    color: #C62828;
+}
+
+.prediction-result.neutral {
+    color: #F57C00;
+}
+
+.emoji-container {
+    margin: 60px 0;
+}
+
+.emoji {
+    font-size: 160px;
+    line-height: 1;
+}
+
+.result-message {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+
+.result-message.positive {
+    color: #2E7D32;
+}
+
+.result-message.negative {
+    color: #2E7D32;
+}
+
+.result-message.neutral {
+    color: #2E7D32;
+}
+
+.back-btn {
+    display: inline-block;
+    background-color: white;
+    color: black;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 40px;
+    border: 2px solid black;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: all 0.3s;
+    margin-top: 20px;
+}
+
+.back-btn:hover {
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.green-footer {
+    background-color: #556B2F;
+    height: 40px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.error-content {
+    max-width: 800px;
+    margin: 100px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.error-text-small {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.error-text-large {
+    font-size: 8rem;
+    font-weight: 700;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.error-text-medium {
+    font-size: 2rem;
+    font-weight: 600;
+    color: black;
+    margin-bottom: 40px;
+}
+
+@media (max-width: 768px) {
+    .gradient-header h1,
+    .green-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+    }
+    
+    textarea {
+        width: 100%;
+        height: 150px;
+    }
+    
+    .emoji {
+        font-size: 100px;
+    }
+    
+    .result-message {
+        font-size: 1.3rem;
+    }
+    
+    .error-text-large {
+        font-size: 5rem;
+    }
+}
